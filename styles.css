@@ -411,6 +411,45 @@ body {
     border-color: var(--border-hover);
 }
 
+/* Form Footer - Edge Aligned */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-6);
+    padding: 0 var(--space-4);
+}
+
+.footer-link-left {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    flex: 1;
+}
+
+.footer-link-right {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    text-align: right;
+    flex: 1;
+}
+
+.footer-link-left:hover,
+.footer-link-right:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+
+.footer-separator {
+    color: var(--text-tertiary);
+    font-size: var(--font-size-sm);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .header-content,

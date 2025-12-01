@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create account - flodoc</title>
+    <title>Sign in - flodoc</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,30 +12,19 @@
             <div class="logo">
                 <span class="logo-text">flodoc</span>
             </div>
-            <button class="sign-in-btn" onclick="window.location.href='signin.html'">Sign in</button>
+            <button class="sign-in-btn" onclick="window.location.href='register.html'">Create account</button>
         </div>
     </header>
 
     <main class="main-content">
         <div class="registration-page">
             <div class="form-container">
-                <h1 class="page-title">Create account</h1>
+                <h1 class="page-title">Sign in</h1>
 
-                <form class="registration-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="first-name">First name</label>
-                            <input type="text" id="first-name" name="first_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="last-name">Last name</label>
-                            <input type="text" id="last-name" name="last_name" required>
-                        </div>
-                    </div>
-
+                <form class="registration-form" id="signin-form">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email or phone</label>
+                        <input type="text" id="email" name="email" required>
                     </div>
 
                     <div class="form-group">
@@ -51,12 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="agree-terms" name="agree_terms" required>
-                        <label for="agree-terms">I agree to the Terms of Service and Privacy Policy</label>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Create account</button>
+                    <button type="submit" class="submit-btn">Sign in</button>
                 </form>
 
                 <div class="divider">
@@ -84,10 +68,15 @@
                         Continue with Microsoft
                     </button>
                 </div>
+
+                <div class="form-footer">
+                    <a href="register.html" class="footer-link footer-link-left">Create a free account</a>
+                    <a href="#" class="footer-link footer-link-right" onclick="handleForgotPassword(event)">Forgot your password?</a>
+                </div>
             </div>
         </div>
     </main>
 
-    <script src="register.js"></script>
+    <script src="signin.js"></script>
 </body>
 </html>
