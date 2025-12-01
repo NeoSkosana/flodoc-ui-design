@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create account - flodoc</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">flodoc</span>
+            </div>
+            <button class="sign-in-btn">Sign in</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="registration-page">
+            <div class="form-container">
+                <h1 class="page-title">Create account</h1>
+
+                <form class="registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First name</label>
+                            <input type="text" id="first-name" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last name</label>
+                            <input type="text" id="last-name" name="last_name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-field">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="password-toggle">
+                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.66699 9.99984C1.66699 9.99984 5.00033 4.1665 10.0003 4.1665C15.0003 4.1665 18.3337 9.99984 18.3337 9.99984C18.3337 9.99984 15.0003 15.8332 10.0003 15.8332C5.00033 15.8332 1.66699 9.99984 1.66699 9.99984Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agree-terms" name="agree_terms" required>
+                        <label for="agree-terms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Create account</button>
+                </form>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <div class="social-signup">
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.6 10.2273C19.6 9.51818 19.5364 8.83636 19.4182 8.18182H10V12.05H15.3818C15.15 13.3 14.4455 14.3591 13.3818 15.0682V17.5773H16.6182C18.5091 15.8364 19.6 13.2727 19.6 10.2273Z" fill="#4285F4"/>
+                            <path d="M10 20C12.7 20 14.9636 19.1045 16.6182 17.5773L13.3818 15.0682C12.4909 15.6682 11.3455 16.0227 10 16.0227C7.39545 16.0227 5.19091 14.2636 4.40455 11.9H1.09091V14.4909C2.72727 17.7591 6.09091 20 10 20Z" fill="#34A853"/>
+                            <path d="M4.40455 11.9C4.20455 11.3 4.09091 10.65 4.09091 9.95455C4.09091 9.25909 4.20455 8.60909 4.40455 8.00909V5.41818H1.09091C0.4 6.59091 0 7.94545 0 9.95455C0 11.2273 0.4 12.5818 1.09091 13.7545L4.40455 11.9Z" fill="#FBBC05"/>
+                            <path d="M10 3.90909C11.4773 3.90909 12.7909 4.40909 13.8273 5.38636L16.6818 2.53182C14.9636 0.936364 12.7 0 10 0C6.09091 0 2.72727 2.24091 1.09091 5.41818L4.40455 8.00909C5.19091 5.68636 7.39545 3.90909 10 3.90909Z" fill="#EA4335"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="8" height="8" fill="#F25022"/>
+                            <rect x="11" y="1" width="8" height="8" fill="#7FBA00"/>
+                            <rect x="1" y="11" width="8" height="8" fill="#00A4EF"/>
+                            <rect x="11" y="11" width="8" height="8" fill="#FFB900"/>
+                        </svg>
+                        Continue with Microsoft
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="register.js"></script>
+</body>
+</html>
