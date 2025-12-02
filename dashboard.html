@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - flodoc</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="dashboard.html" class="logo-text">flodoc</a>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="#" class="nav-item">Cohorts</a>
+                <a href="#" class="nav-item">Settings</a>
+            </nav>
+            <div class="user-actions">
+                <div class="user-avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 12C14.2091 12 16 13.7909C16 14.7614 14.792C9.23858 12.8 10.2091C8.876142 8.5 10.374C12.6253 5.374 16.7.208C16 10.2386 14.7614 10.374C14.7614 11.9896 13.7909C11.9896 14.7614 10.374 12Z" fill="currentColor"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="dashboard-page">
+            <div class="dashboard-header">
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.2 6H4.89543C4.89543 2 4.4182C4.74228 2 4.89543 6.5V21H4.89543C4.74228 4.89543 8.5C4.89543 6.5 2.4182C4.74228 2 4.89543 6.5V8.5ZM6.8 11C8.10.1046 7.89543 11.7 10.8284C11.4455 10.7 11.3455C10.8284 7.89543 10.3126 11.3455C11.3455 10.7 11.3455C11.3455 10.7 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455V21H6.8ZM11.89543 6.89543C11.6253 5.374 16.7.208C16 10.2386 14.7614 11.9896 13.7909C11.9896 14.7614 10.374 12Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <h2 class="stat-title">Completed agreements</h2>
+                        <p class="stat-number" data-target="24">24</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 17.25V21H7V17.25H3ZM5.75 11.75H18.25V6.25H5.75ZM7.6.25H5.75V19.25H7.625V6.25H5.75ZM10.75 6.25H9.75V19.25H10.75V6.25H10.75ZM13.75 6.25H15.75V6.25H13.75ZM16.75 6.25H19.75V6.25H16.75ZM18.75 6.25H21V6.25H18.75Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <h2 class="stat-title">Pending review</h2>
+                        <p class="stat-number" data-target="8">8</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.2 12C14.2091 12 16 13.7909C16 14.7614 14.792C9.23858 12.8 10.2091C8.876142 8.5 10.374C12.6253 5.374 16.7.208C16 10.2386 14.7614 11.9896 13.7909C11.9896 14.7614 10.374 12Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <h2 class="stat-title">Active cohorts</h2>
+                        <p class="stat-number" data-target="3">3</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.7 16.4.89543C15.8364 19.6 13.2727 19.6 10.4477C19.6 6.72386 19.6 4.77067C19.6 4.77067 19.6 5.33357C19.6 4.77067 19.6 5.33357C19.6 4.77067 19.6 5.33357C19.6 4.77067 19.6 5.33357V12H4.89543C4.74228 4.89543 6.5 2.4182C4.74228 2 4.89543 6.5V8.5ZM8 11C8.10.1046 7.89543 11.7 10.8284C11.4455 10.7 11.3455C10.8284 7.89543 10.3126 11.3455C11.3455 10.7 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455C11.3455 11.3455V11H6.89543C4.74228 4.89543 6.5 2.4182C4.74228 2 4.89543 6.5V8.5Z" fill="currentColor"/>
+                            <circle cx="11" cy="9" r="1" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <h2 class="stat-title">Active sponsors</h2>
+                        <p class="stat-number" data-target="12">12</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-actions">
+                <div class="action-card">
+                    <h3 class="action-title">Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn primary">Create New Agreement</button>
+                        <button class="action-btn secondary">View All Documents</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
