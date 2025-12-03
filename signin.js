@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.disabled = false;
                     form.reset();
 
-                    // Redirect to dashboard or main page
-                    // window.location.href = 'dashboard.html';
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
                 }, 2000);
             }
         });
