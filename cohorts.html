@@ -42,7 +42,7 @@
                     <h1 class="cohorts-title">Cohorts</h1>
                 </div>
                 <div class="cohorts-actions">
-                    <button class="create-cohort-btn" onclick="location.href='cohort-edit.html'">
+                    <button class="create-cohort-btn" onclick="openCreateCohortModal()">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 5v10M5 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
@@ -724,6 +724,161 @@
         </div>
     </main>
 
+    <!-- Create Cohort Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="close-btn" onclick="closeModal()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Cohort</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 33%;"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="progress-step active" id="step1Indicator">
+                            <div class="step-number">1</div>
+                            <span>Basic Info</span>
+                        </div>
+                        <div class="progress-step" id="step2Indicator">
+                            <div class="step-number">2</div>
+                            <span>Details</span>
+                        </div>
+                        <div class="progress-step" id="step3Indicator">
+                            <div class="step-number">3</div>
+                            <span>Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Step 1: Basic Information -->
+                <div class="form-section active" id="step1">
+                    <h3 class="section-title">Basic Information</h3>
+
+                    <div class="form-group">
+                        <label for="cohortName">Cohort Name *</label>
+                        <input type="text" id="cohortName" class="form-input" placeholder="e.g., System Development 2024">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="programType">Program Type *</label>
+                        <select id="programType" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="internship">Internship</option>
+                            <option value="learnership">Learnership</option>
+                            <option value="candidacy">Candidacy</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="setaType">SETA Type *</label>
+                        <select id="setaType" class="form-select">
+                            <option value="">Select SETA</option>
+                            <option value="MICT">MICT SETA</option>
+                            <option value="HWSETA">HWSETA</option>
+                            <option value="BANKSETA">BANKSETA</option>
+                            <option value="FASSET">FASSET</option>
+                            <option value="W&RSETA">W&RSETA</option>
+                            <option value="TETA">TETA</option>
+                            <option value="merSETA">merSETA</option>
+                            <option value="AgriSETA">AgriSETA</option>
+                            <option value="CETA">CETA</option>
+                            <option value="PSETA">PSETA</option>
+                            <option value="CATHSSETA">CATHSSETA</option>
+                            <option value="INSETA">INSETA</option>
+                            <option value="ServicesSETA">ServicesSETA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qualification">Qualification *</label>
+                        <select id="qualification" class="form-select">
+                            <option value="">Select Qualification</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 2: Details -->
+                <div class="form-section" id="step2">
+                    <h3 class="section-title">Program Details</h3>
+
+                    <div class="form-group">
+                        <label for="numberOfStudents">Number of Students *</label>
+                        <input type="number" id="numberOfStudents" class="form-input" placeholder="Enter number of students" min="1" max="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsorCompany">Sponsor Company</label>
+                        <input type="text" id="sponsorCompany" class="form-input" placeholder="Enter sponsor company name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1; margin-right: var(--space-3);">
+                            <label for="startDate">Start Date *</label>
+                            <input type="date" id="startDate" class="form-input">
+                        </div>
+                        <div class="form-group" style="flex: 1; margin-left: var(--space-3);">
+                            <label for="endDate">End Date *</label>
+                            <input type="date" id="endDate" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review -->
+                <div class="form-section" id="step3">
+                    <h3 class="section-title">Review & Create</h3>
+
+                    <div style="background-color: rgba(55, 65, 81, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6);">
+                        <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+                            Cohort Summary
+                        </h4>
+                        <div id="reviewContent" style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+                            <!-- Review content will be populated dynamically -->
+                            <p>Please complete all required fields to review your cohort details.</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color: rgba(55, 65, 81, 0.05); border-radius: var(--radius-lg); padding: var(--space-6);">
+                        <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+                            Confirmation
+                        </h4>
+                        <div class="checkbox-item" style="margin-bottom: 0;">
+                            <input type="checkbox" id="confirmCreate" name="confirm">
+                            <div class="checkbox-content">
+                                <div class="checkbox-title">Confirm Cohort Creation</div>
+                                <div class="checkbox-description">I confirm that all information provided is accurate and I have the authority to create this cohort.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <div>
+                    <span class="text-sm text-secondary">
+                        Step <span id="currentStep">1</span> of <span id="totalSteps">4</span>
+                    </span>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-secondary" id="prevBtn" onclick="previousStep()" disabled>Previous</button>
+                    <button class="modal-btn modal-btn-primary" id="nextBtn" onclick="nextStep()">Next</button>
+                    <button class="modal-btn modal-btn-primary" id="createBtn" onclick="createCohort()" style="display: none;" disabled>Create Cohort</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="cohorts.js"></script>
+    <script src="cohorts-modal.js"></script>
 </body>
 </html>

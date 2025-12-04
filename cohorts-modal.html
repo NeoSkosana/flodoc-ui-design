@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Cohort Modal - flodoc</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Modal Overlay with Glassmorphism */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal Container */
+        .modal-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 600px;
+            width: 90%;
+            max-height: 85vh;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        /* Modal Header */
+        .modal-header {
+            padding: var(--space-8) var(--space-8) var(--space-6);
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.1) 0%, rgba(156, 163, 175, 0.05) 100%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-top: var(--space-4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-gray-600) 100%);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-3);
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+
+        .step-number {
+            width: 20px;
+            height: 20px;
+            border-radius: var(--radius-full);
+            background-color: rgba(0, 0, 0, 0.1);
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-xs);
+            margin-bottom: var(--space-1);
+        }
+
+        .progress-step.active .step-number {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .progress-step.completed .step-number {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            padding: var(--space-8);
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-6);
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: var(--space-6);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: var(--input-padding-y) var(--input-padding-x);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius-xl);
+            font-size: var(--font-size-base);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Document Checkboxes */
+        .document-checkboxes {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-3);
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-4);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-lg);
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-top: var(--space-1);
+            width: var(--space-4);
+            height: var(--space-4);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            accent-color: var(--color-primary);
+        }
+
+        .checkbox-content {
+            flex: 1;
+        }
+
+        .checkbox-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .checkbox-description {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            padding: var(--space-6) var(--space-8) var(--space-8);
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.05) 0%, rgba(156, 163, 175, 0.02) 100%);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .modal-btn {
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            border-radius: var(--radius-xl);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .modal-btn-secondary {
+            background-color: rgba(156, 163, 175, 0.2);
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: rgba(156, 163, 175, 0.3);
+            color: var(--text-primary);
+        }
+
+        .modal-btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--color-gray-800);
+        }
+
+        .modal-btn-primary:disabled {
+            background-color: rgba(156, 163, 175, 0.3);
+            color: var(--text-tertiary);
+            cursor: not-allowed;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            width: var(--space-8);
+            height: var(--space-8);
+            border-radius: var(--radius-full);
+            background-color: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: var(--space-6) var(--space-4) var(--space-4);
+            }
+
+            .modal-content {
+                padding: var(--space-6);
+            }
+
+            .modal-footer {
+                padding: var(--space-4);
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+
+            .modal-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .modal-btn {
+                flex: 1;
+            }
+
+            .progress-step {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content" style="padding: var(--space-8);">
+        <div style="text-align: center; margin-bottom: var(--space-8);">
+            <h1>Cohort Creation Modal Test</h1>
+            <button class="modal-btn modal-btn-primary" onclick="openModal()">
+                Create New Cohort
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="close-btn" onclick="closeModal()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Cohort</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="progress-step active" id="step1Indicator">
+                            <div class="step-number">1</div>
+                            <span>Basic Info</span>
+                        </div>
+                        <div class="progress-step" id="step2Indicator">
+                            <div class="step-number">2</div>
+                            <span>Details</span>
+                        </div>
+                        <div class="progress-step" id="step3Indicator">
+                            <div class="step-number">3</div>
+                            <span>Documents</span>
+                        </div>
+                        <div class="progress-step" id="step4Indicator">
+                            <div class="step-number">4</div>
+                            <span>Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <!-- Step 1: Basic Information -->
+                <div class="form-section active" id="step1">
+                    <h3 class="section-title">Basic Information</h3>
+
+                    <div class="form-group">
+                        <label for="cohortName">Cohort Name *</label>
+                        <input type="text" id="cohortName" class="form-input" placeholder="e.g., System Development 2024">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="setaType">SETA Type *</label>
+                        <select id="setaType" class="form-select">
+                            <option value="">Select SETA</option>
+                            <option value="MICT">MICT SETA</option>
+                            <option value="HWSETA">HWSETA</option>
+                            <option value="BANKSETA">BANKSETA</option>
+                            <option value="FASSET">FASSET</option>
+                            <option value="W&RSETA">W&RSETA</option>
+                            <option value="TETA">TETA</option>
+                            <option value="merSETA">merSETA</option>
+                            <option value="AgriSETA">AgriSETA</option>
+                            <option value="CETA">CETA</option>
+                            <option value="PSETA">PSETA</option>
+                            <option value="CATHSSETA">CATHSSETA</option>
+                            <option value="INSETA">INSETA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qualification">Qualification *</label>
+                        <select id="qualification" class="form-select">
+                            <option value="">Select Qualification</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cohortType">NQF Level *</label>
+                        <select id="cohortType" class="form-select">
+                            <option value="">Select Level</option>
+                            <option value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option value="3">Level 3</option>
+                            <option value="4">Level 4</option>
+                            <option value="5">Level 5</option>
+                            <option value="6">Level 6</option>
+                            <option value="7">Level 7</option>
+                            <option value="8">Level 8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Step 2: Details -->
+                <div class="form-section" id="step2">
+                    <h3 class="section-title">Program Details</h3>
+
+                    <div class="form-group">
+                        <label for="numberOfStudents">Number of Students *</label>
+                        <input type="number" id="numberOfStudents" class="form-input" placeholder="Enter number of students" min="1" max="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsor">Sponsor *</label>
+                        <input type="text" id="sponsor" class="form-input" placeholder="Enter sponsor name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sponsorCompany">Sponsor Company</label>
+                        <input type="text" id="sponsorCompany" class="form-input" placeholder="Enter sponsor company name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Program Duration *</label>
+                        <input type="text" id="duration" class="form-input" placeholder="e.g., 12 weeks, 6 months">
+                    </div>
+                </div>
+
+                <!-- Step 3: Documents -->
+                <div class="form-section" id="step3">
+                    <h3 class="section-title">Supporting Documents</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: var(--font-size-sm);">
+                        Select the required supporting documents for this cohort
+                    </p>
+
+                    <div class="document-checkboxes">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentId" name="documents" value="id">
+                            <div class="checkbox-content">
+                                <div class="checkbox-title">ID Document</div>
+                                <div class="checkbox-description">Valid identification document for all participants</div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentMetric" name="documents" value="metric">
+                            <div class="checkbox-content">
+                                <div class="checkbox-title">Metric Certificate</div>
+                                <div class="checkbox-description">Metric certificate or equivalent qualification</div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentTertiary" name="documents" value="tertiary">
+                            <div class="checkbox-content">
+                                <div class="checkbox-title">Tertiary Classification</div>
+                                <div class="checkbox-description">Tertiary education classification documents</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review -->
+                <div class="form-section" id="step4">
+                    <h3 class="section-title">Review & Create</h3>
+
+                    <div style="background-color: rgba(55, 65, 81, 0.05); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6);">
+                        <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+                            Cohort Summary
+                        </h4>
+                        <div id="reviewContent" style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+                            <!-- Review content will be populated dynamically -->
+                            <p>Please complete all required fields to review your cohort details.</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color: rgba(55, 65, 81, 0.05); border-radius: var(--radius-lg); padding: var(--space-6);">
+                        <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+                            Confirmation
+                        </h4>
+                        <div class="checkbox-item" style="margin-bottom: 0;">
+                            <input type="checkbox" id="confirmCreate" name="confirm">
+                            <div class="checkbox-content">
+                                <div class="checkbox-title">Confirm Cohort Creation</div>
+                                <div class="checkbox-description">I confirm that all information provided is accurate and I have the authority to create this cohort.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <div>
+                    <span class="text-sm text-secondary">
+                        Step <span id="currentStep">1</span> of <span id="totalSteps">4</span>
+                    </span>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button class="modal-btn modal-btn-secondary" id="prevBtn" onclick="previousStep()" disabled>Previous</button>
+                    <button class="modal-btn modal-btn-primary" id="nextBtn" onclick="nextStep()">Next</button>
+                    <button class="modal-btn modal-btn-primary" id="createBtn" onclick="createCohort()" style="display: none;" disabled>Create Cohort</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="cohorts-modal.js"></script>
+</body>
+</html>
