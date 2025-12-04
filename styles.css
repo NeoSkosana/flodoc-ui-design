@@ -841,6 +841,485 @@ body {
 }
 
 
+/* Cohorts Page */
+.cohorts-page {
+    padding-top: var(--space-8);
+}
+
+.cohorts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+}
+
+.cohorts-title-section {
+    flex: 1;
+}
+
+.cohorts-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-8);
+    padding: var(--space-4);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.pagination-info {
+    flex: 1;
+}
+
+.pagination-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-btn svg {
+    flex-shrink: 0;
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.page-number {
+    width: var(--space-8);
+    height: var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-number:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.page-number.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+.cohorts-actions {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.create-cohort-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    border: none;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.create-cohort-btn:hover {
+    background-color: var(--color-gray-800);
+}
+
+/* Cohorts Grid */
+.cohorts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    width: 100%;
+}
+
+/* Cohort Cards */
+.cohort-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cohort-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.cohort-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-4);
+}
+
+.cohort-icon {
+    width: var(--space-10);
+    height: var(--space-10);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.cohort-status {
+    flex-shrink: 0;
+}
+
+.status-badge.active {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.completed {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+}
+
+.status-badge.draft {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.cohort-content {
+    flex: 1;
+    margin-bottom: var(--space-4);
+}
+
+.cohort-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    line-height: 1.4;
+}
+
+.cohort-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+    line-height: 1.5;
+}
+
+.cohort-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: 48px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+}
+
+.cohort-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cohort-action-btn {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cohort-action-btn:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+/* Cohort Card Hover Overlay */
+.cohort-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.cohort-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.cohort-card:hover .cohort-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.cohort-card:hover .overlay-content {
+    transform: translateY(0);
+}
+
+.overlay-text {
+    color: var(--color-white);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+/* Filters and Sorting */
+.filters-container {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.filter-select {
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.filter-actions {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-end;
+}
+
+.apply-filters-btn,
+.clear-filters-btn {
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    white-space: nowrap;
+}
+
+.apply-filters-btn {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.apply-filters-btn:hover {
+    background-color: var(--color-gray-800);
+}
+
+.clear-filters-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+.clear-filters-btn:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+/* Active Filters Display */
+.active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: 0;
+    min-height: var(--space-6);
+    align-items: center;
+}
+
+.active-filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.filter-tag-label {
+    color: var(--text-tertiary);
+}
+
+.filter-tag-value {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.remove-filter {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    width: 16px;
+    height: 16px;
+}
+
+.remove-filter:hover {
+    color: #dc2626;
+    background-color: #fee2e2;
+}
+
+.no-filters-text {
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* Results Summary */
+.results-summary {
+    margin-bottom: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    display: none;
+}
+
+.results-summary.show {
+    display: block;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .header-content,
@@ -860,6 +1339,59 @@ body {
 
     .form-container {
         padding: 32px 24px;
+    }
+
+    .cohorts-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-4);
+    }
+
+    .cohorts-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        gap: var(--space-4);
+        align-items: stretch;
+    }
+
+    .pagination-controls {
+        justify-content: center;
+    }
+
+    .filter-group {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .filter-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .cohorts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+
+    .cohort-stats {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .stat-item {
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 
@@ -881,5 +1413,346 @@ body {
 
     .form-container {
         padding: 24px 16px;
+    }
+
+    .cohorts-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .cohort-card {
+        padding: var(--space-4);
+    }
+
+    .cohorts-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+}
+
+/* Cohort Edit Page */
+.cohort-edit-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cohort-form .form-container {
+    max-width: var(--container-width-xl);
+    width: 100%;
+    padding: var(--form-padding);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--bg-primary);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.form-title-section {
+    flex: 1;
+}
+
+.form-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    margin-top: var(--space-2);
+    margin-bottom: 0;
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.cancel-btn,
+.save-draft-btn,
+.publish-btn {
+    padding: var(--btn-padding-y) var(--btn-padding-x);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.cancel-btn {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+}
+
+.cancel-btn:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.save-draft-btn {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+    border: 1px solid var(--color-gray-300);
+}
+
+.save-draft-btn:hover {
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-800);
+}
+
+.publish-btn {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.publish-btn:hover {
+    background-color: var(--color-gray-800);
+}
+
+/* Form Sections */
+.form-section {
+    margin-bottom: var(--space-10);
+}
+
+.form-section .section-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-primary);
+}
+
+/* Form Controls for Cohort Edit */
+.cohort-form .form-group {
+    margin-bottom: var(--space-6);
+}
+
+.cohort-form .form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-2);
+    display: block;
+}
+
+.cohort-form input[type="text"],
+.cohort-form input[type="number"],
+.cohort-form input[type="date"],
+.cohort-form select,
+.cohort-form textarea {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-base);
+    transition: border-color 0.2s ease;
+    background-color: var(--bg-primary);
+}
+
+.cohort-form input:focus,
+.cohort-form select:focus,
+.cohort-form textarea:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.cohort-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.cohort-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
+}
+
+.cohort-form .form-row .form-group {
+    margin-bottom: 0;
+}
+
+/* Document Upload Section */
+.document-upload-section {
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    background-color: var(--bg-secondary);
+}
+
+.upload-area {
+    border: 2px dashed var(--border-hover);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--border-focus);
+    background-color: var(--bg-primary);
+}
+
+.upload-icon {
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-4);
+}
+
+.upload-content h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.upload-content p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.upload-btn {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.upload-btn:hover {
+    background-color: var(--color-gray-800);
+}
+
+.uploaded-documents {
+    margin-top: var(--space-6);
+}
+
+.document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+}
+
+.document-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.document-icon {
+    width: var(--space-8);
+    height: var(--space-8);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.document-details {
+    flex: 1;
+}
+
+.document-name {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+}
+
+.document-size {
+    font-size: var(--font-size-xs);
+    color: var(--text-tertiary);
+}
+
+.document-remove {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.document-remove:hover {
+    color: #dc2626;
+    background-color: #fee2e2;
+}
+
+/* Responsive Design for Cohort Edit */
+@media (max-width: 768px) {
+    .cohort-form .form-container {
+        padding: var(--space-8) var(--space-4);
+    }
+
+    .form-header {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .form-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .cohort-form .form-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .upload-area {
+        padding: var(--space-6);
+    }
+
+    .document-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+
+    .document-info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .cohort-form .form-container {
+        padding: var(--space-6) var(--space-3);
+    }
+
+    .form-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--space-2);
+    }
+
+    .cancel-btn,
+    .save-draft-btn,
+    .publish-btn {
+        width: 100%;
+    }
+
+    .form-section .section-title {
+        font-size: var(--font-size-lg);
     }
 }

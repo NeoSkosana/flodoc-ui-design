@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Cohort - flodoc</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">flodoc</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="cohorts.html" class="nav-item active">Cohorts</a>
+                <a href="#" class="nav-item">Settings</a>
+            </nav>
+            <div class="user-actions">
+                <button class="notification-btn" title="Notifications">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-avatar" title="Profile">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="cohort-edit-page">
+            <div class="form-container">
+                <div class="form-header">
+                    <div class="form-title-section">
+                        <h1 class="page-title">Create New Cohort</h1>
+                        <p class="form-subtitle">Set up a new training cohort and sponsorship program</p>
+                    </div>
+                    <div class="form-actions">
+                        <button class="cancel-btn" onclick="cancelForm()">Cancel</button>
+                        <button class="save-draft-btn" onclick="saveDraft()">Save as Draft</button>
+                        <button class="publish-btn" onclick="publishCohort()">Publish Cohort</button>
+                    </div>
+                </div>
+
+                <form class="cohort-form" id="cohortForm">
+                    <!-- Basic Information Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Basic Information</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cohortName">Cohort Name *</label>
+                                <input type="text" id="cohortName" name="cohortName" required placeholder="e.g., System Development 2024">
+                            </div>
+                            <div class="form-group">
+                                <label for="cohortType">Cohort Type *</label>
+                                <select id="cohortType" name="cohortType" required>
+                                    <option value="">Select type</option>
+                                    <option value="technical">Technical Training</option>
+                                    <option value="healthcare">Healthcare Support</option>
+                                    <option value="admin">System Administration</option>
+                                    <option value="marketing">Digital Marketing</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cohortDescription">Description *</label>
+                            <textarea id="cohortDescription" name="cohortDescription" required rows="4"
+                                placeholder="Provide a detailed description of the training program..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startDate">Start Date *</label>
+                                <input type="date" id="startDate" name="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">End Date *</label>
+                                <input type="date" id="endDate" name="endDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maxStudents">Maximum Students *</label>
+                                <input type="number" id="maxStudents" name="maxStudents" required min="1" max="100" placeholder="20">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Curriculum Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Curriculum Details</h2>
+                        <div class="form-group">
+                            <label for="programDuration">Program Duration *</label>
+                            <input type="text" id="programDuration" name="programDuration" required placeholder="e.g., 12 weeks, 6 months">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skills">Key Skills Covered</label>
+                            <input type="text" id="skills" name="skills" placeholder="e.g., JavaScript, React, Node.js (comma separated)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prerequisites">Prerequisites</label>
+                            <textarea id="prerequisites" name="prerequisites" rows="3"
+                                placeholder="List any prerequisites for participants..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="outcomes">Learning Outcomes</label>
+                            <textarea id="outcomes" name="outcomes" rows="4"
+                                placeholder="What participants will learn and be able to do after completing the program..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Sponsorship Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Sponsorship Information</h2>
+                        <div class="form-group">
+                            <label for="sponsorshipAmount">Sponsorship Amount Per Student *</label>
+                            <input type="number" id="sponsorshipAmount" name="sponsorshipAmount" required min="0" step="100" placeholder="5000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentSchedule">Payment Schedule</label>
+                            <select id="paymentSchedule" name="paymentSchedule">
+                                <option value="upfront">Full Upfront</option>
+                                <option value="monthly">Monthly Installments</option>
+                                <option value="milestone">Milestone-based</option>
+                                <option value="completion">On Completion</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sponsorBenefits">Sponsor Benefits</label>
+                            <textarea id="sponsorBenefits" name="sponsorBenefits" rows="3"
+                                placeholder="Describe benefits for sponsors (e.g., branding, hiring pipeline, tax benefits)..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Documents Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Supporting Documents</h2>
+                        <div class="document-upload-section">
+                            <div class="upload-area" id="documentUpload">
+                                <div class="upload-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17 8l-5-5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="upload-content">
+                                    <h3>Upload supporting documents</h3>
+                                    <p>Drag and drop files here, or click to browse</p>
+                                    <button type="button" class="upload-btn">Choose Files</button>
+                                </div>
+                            </div>
+                            <div class="uploaded-documents" id="uploadedDocuments">
+                                <!-- Uploaded documents will be listed here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agreement Template Section -->
+                    <div class="form-section">
+                        <h2 class="section-title">Agreement Template</h2>
+                        <div class="form-group">
+                            <label for="agreementTemplate">Select Agreement Template</label>
+                            <select id="agreementTemplate" name="agreementTemplate">
+                                <option value="">Choose a template or create custom</option>
+                                <option value="standard">Standard Sponsorship Agreement</option>
+                                <option value="training">Training Program Agreement</option>
+                                <option value="apprenticeship">Apprenticeship Agreement</option>
+                                <option value="custom">Create Custom Template</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customTerms">Custom Terms & Conditions</label>
+                            <textarea id="customTerms" name="customTerms" rows="6"
+                                placeholder="Add any custom terms or modifications to the standard agreement template..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="cohort-edit.js"></script>
+</body>
+</html>
