@@ -3,197 +3,1930 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Cohort - flodoc</title>
+    <title>cohort 1 - Edit - floDoc</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    <style>
+        .cohort-edit-layout {
+            display: flex;
+            gap: var(--space-6);
+            height: calc(100vh - 180px);
+            padding: var(--space-6);
+        }
+
+        /* Header Button Styles */
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .btn-invite {
+            background: var(--color-white);
+            border: 1px solid var(--border-primary);
+            color: var(--text-primary);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-invite:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-secondary);
+        }
+
+        .btn-save {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-save:hover {
+            background: var(--color-primary-dark);
+        }
+
+        /* Breadcrumb Section */
+        .breadcrumb-section {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+            padding: var(--space-3) 0;
+        }
+
+        .breadcrumb-section .container {
+            max-width: var(--container-width-xl);
+            margin: 0 auto;
+            padding: 0 var(--content-padding);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Left Column - Document Upload */
+        .document-column {
+            flex: 0 0 20%;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .document-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+        }
+
+        .section-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .file-upload-area {
+            border: 2px dashed var(--border-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--border-focus);
+            background: var(--bg-secondary);
+        }
+
+        .upload-icon {
+            font-size: 24px;
+            margin-bottom: var(--space-2);
+        }
+
+        .upload-text {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .upload-subtext {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            margin-top: var(--space-1);
+        }
+
+        .uploaded-files {
+            margin-top: var(--space-3);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-2);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .file-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .remove-file {
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .remove-file:hover {
+            color: var(--text-primary);
+        }
+
+        .document-preview {
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-top: var(--space-3);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2) var(--space-3);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .preview-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            truncate: true;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .remove-preview {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: var(--space-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .remove-preview:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .preview-content {
+            padding: var(--space-4);
+            background: var(--bg-primary);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--text-tertiary);
+        }
+
+        .preview-icon {
+            font-size: 32px;
+            opacity: 0.5;
+        }
+
+        .preview-placeholder span {
+            font-size: var(--font-size-sm);
+        }
+
+        /* Center Column - PDF Preview */
+        .pdf-column {
+            flex: 0 0 60%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .document-actions-bar {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: flex-end;
+        }
+
+        .pdf-header {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pdf-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .pdf-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .btn-pdf {
+            padding: var(--space-2) var(--space-3);
+            font-size: var(--font-size-sm);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-primary);
+            background: var(--color-white);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pdf:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        .pdf-preview {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        #pdf-container {
+            flex: 1;
+            overflow: auto;
+            background: #525659;
+            display: flex;
+            justify-content: center;
+            padding: var(--space-4);
+        }
+
+        #pdf-canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: white;
+        }
+
+        .pdf-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .pdf-navigation {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .pdf-zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .pdf-btn {
+            padding: var(--space-2);
+            background: var(--color-white);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+        }
+
+        .pdf-btn:hover:not(:disabled) {
+            background: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        .pdf-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pdf-page-info {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .pdf-zoom-level {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .pdf-placeholder {
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+
+        .pdf-placeholder-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-3);
+            opacity: 0.5;
+        }
+
+        /* Right Column - Field Mapping */
+        .mapping-column {
+            flex: 0 0 20%;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .signatory-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+        }
+
+        .signatory-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .signatory-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .signatory-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .btn-map {
+            padding: var(--space-1) var(--space-3);
+            font-size: var(--font-size-xs);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-primary);
+            background: var(--color-white);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-map:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        .btn-map.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .input-types-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .input-types-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding-bottom: 8px;
+        }
+
+        .input-type-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border-primary);
+            border-radius: var(--radius-md);
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: rgb(250, 247, 245);
+            min-height: 80px;
+            padding: 8px;
+        }
+
+        .input-type-button:hover {
+            border-color: var(--border-hover);
+            background-color: var(--bg-tertiary);
+        }
+
+        .drag-handle {
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: grab;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            opacity: 0;
+        }
+
+        .input-type-button:hover .drag-handle {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .field-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+        }
+
+        .field-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .field-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .scan-section {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+        }
+
+        /* Documents Carousel Styles */
+        .documents-carousel {
+            margin-top: var(--space-3);
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            border: 1px solid var(--border-primary);
+            border-bottom: none;
+        }
+
+        .carousel-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .carousel-btn {
+            background: var(--color-white);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--space-1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .carousel-btn:hover:not(:disabled) {
+            background: var(--bg-tertiary);
+            border-color: var(--border-hover);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .carousel-counter {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .carousel-container {
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-item {
+            display: none;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        .document-preview-mini {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mini-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2) var(--space-3);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .mini-title {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            truncate: true;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .remove-mini {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: var(--space-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin-left: var(--space-2);
+        }
+
+        .remove-mini:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .mini-preview {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mini-preview:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .mini-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-1);
+            color: var(--text-tertiary);
+        }
+
+        .mini-icon {
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .mini-placeholder span {
+            font-size: var(--font-size-xs);
+        }
+
+        .uploaded-files {
+            margin-top: var(--space-3);
+            display: none;
+        }
+
+        .uploaded-files.show {
+            display: block;
+        }
+
+        .file-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-2);
+            font-size: var(--font-size-xs);
+            color: var(--text-primary);
+        }
+
+        .btn-scan {
+            width: 100%;
+            padding: var(--space-3);
+            background: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-scan:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .file-input {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <span class="logo-text">flodoc</span>
-            </div>
-            <nav class="nav-menu">
-                <a href="dashboard.html" class="nav-item">Dashboard</a>
-                <a href="cohorts.html" class="nav-item active">Cohorts</a>
-                <a href="#" class="nav-item">Settings</a>
-            </nav>
-            <div class="user-actions">
-                <button class="notification-btn" title="Notifications">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="notification-badge">3</span>
-                </button>
-                <div class="user-avatar" title="Profile">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
-                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">flodoc</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-item">Dashboard</a>
+                    <a href="cohorts.html" class="nav-item active">Cohorts</a>
+                    <a href="#" class="nav-item">Settings</a>
+                </nav>
+                <div class="user-actions">
+                    <button class="notification-btn" title="Notifications">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="user-avatar" title="Profile">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="main-content">
-        <div class="cohort-edit-page">
-            <div class="form-container">
-                <div class="form-header">
-                    <div class="form-title-section">
-                        <h1 class="page-title">Create New Cohort</h1>
-                        <p class="form-subtitle">Set up a new training cohort and sponsorship program</p>
+  
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Document Actions Bar -->
+            <div class="document-actions-bar">
+                <button class="btn-invite">+ Invite</button>
+                <button class="btn-save">Save</button>
+            </div>
+
+            <div class="cohort-edit-layout">
+                <!-- Left Column - Document Upload -->
+                <div class="document-column">
+                    <div class="document-section">
+                        <h3 class="section-title">SETA Agreement</h3>
+                        <div class="file-upload-area" id="cisa-upload-area">
+                            <input type="file" id="cisa-upload" class="file-input" accept=".pdf">
+                            <label for="cisa-upload" class="file-upload-label">
+                                <div class="upload-icon">📁</div>
+                                <div class="upload-text">Click to upload</div>
+                                <div class="upload-subtext">PDF only</div>
+                            </label>
+                        </div>
+                        <div class="document-preview" id="cisa-preview" style="display: none;">
+                            <div class="preview-header">
+                                <div class="preview-title" id="cisa-preview-title">Document.pdf</div>
+                                <button class="remove-preview" onclick="removeCisaDocument()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 6L6 18M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="preview-content" id="cisa-preview-content">
+                                <div class="preview-placeholder">
+                                    <div class="preview-icon">📄</div>
+                                    <span>Document preview</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uploaded-files" id="cisa-files">
+                            <!-- CISA files will be displayed here -->
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <button class="cancel-btn" onclick="cancelForm()">Cancel</button>
-                        <button class="save-draft-btn" onclick="saveDraft()">Save as Draft</button>
-                        <button class="publish-btn" onclick="publishCohort()">Publish Cohort</button>
+
+                    <div class="document-section">
+                        <h3 class="section-title">Additional Documents</h3>
+                        <div class="file-upload-area" id="additional-upload-area">
+                            <input type="file" id="additional-upload" class="file-input" accept=".pdf" multiple>
+                            <label for="additional-upload" class="file-upload-label">
+                                <div class="upload-icon">📁</div>
+                                <div class="upload-text">Click to upload</div>
+                                <div class="upload-subtext">PDF files up to 10MB</div>
+                            </label>
+                        </div>
+                        <div class="documents-carousel" id="documents-carousel" style="display: none;">
+                            <div class="carousel-header">
+                                <h4 class="carousel-title">Documents</h4>
+                                <div class="carousel-controls">
+                                    <button class="carousel-btn" id="carousel-prev" disabled>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M15 18l-6-6 6-6"/>
+                                        </svg>
+                                    </button>
+                                    <span class="carousel-counter" id="carousel-counter">1 / 1</span>
+                                    <button class="carousel-btn" id="carousel-next" disabled>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 18l6-6-6-6"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="carousel-container" id="carousel-container">
+                                <div class="carousel-item active" id="carousel-item-0">
+                                    <div class="document-preview-mini">
+                                        <div class="mini-header">
+                                            <div class="mini-title" id="mini-title-0">Document.pdf</div>
+                                            <button class="remove-mini" onclick="removeAdditionalDocument(0)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M18 6L6 18M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="mini-preview" id="mini-preview-0">
+                                            <div class="mini-placeholder">
+                                                <div class="mini-icon">📄</div>
+                                                <span>Preview</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+
+                <!-- Center Column - PDF Preview -->
+                <div class="pdf-column">
+                    <div class="pdf-header">
+                        <h3 class="pdf-title" id="pdf-title">Document Preview</h3>
+                        <div class="pdf-actions">
+                            <button class="btn-pdf" id="zoom-in-btn">Zoom In</button>
+                            <button class="btn-pdf" id="zoom-out-btn">Zoom Out</button>
+                            <button class="btn-pdf" id="fit-btn">Fit</button>
+                        </div>
+                    </div>
+                    <div class="pdf-preview">
+                        <div id="pdf-container">
+                            <canvas id="pdf-canvas"></canvas>
+                        </div>
+                        <div class="pdf-controls" id="pdf-controls" style="display: none;">
+                            <div class="pdf-navigation">
+                                <button class="pdf-btn" id="prev-page-btn" disabled>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M15 18l-6-6 6-6"/>
+                                    </svg>
+                                </button>
+                                <span class="pdf-page-info" id="page-info">1 / 1</span>
+                                <button class="pdf-btn" id="next-page-btn" disabled>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18l6-6-6-6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="pdf-zoom-controls">
+                                <span class="pdf-zoom-level" id="zoom-level">100%</span>
+                            </div>
+                        </div>
+                        <div class="pdf-placeholder" id="pdf-placeholder">
+                            <div class="pdf-placeholder-icon">📄</div>
+                            <div class="upload-text">Upload a document to preview</div>
+                            <div class="upload-subtext">Your document will appear here</div>
+                        </div>
                     </div>
                 </div>
 
-                <form class="cohort-form" id="cohortForm">
-                    <!-- Basic Information Section -->
-                    <div class="form-section">
-                        <h2 class="section-title">Basic Information</h2>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="cohortName">Cohort Name *</label>
-                                <input type="text" id="cohortName" name="cohortName" required placeholder="e.g., System Development 2024">
-                            </div>
-                            <div class="form-group">
-                                <label for="cohortType">Cohort Type *</label>
-                                <select id="cohortType" name="cohortType" required>
-                                    <option value="">Select type</option>
-                                    <option value="technical">Technical Training</option>
-                                    <option value="healthcare">Healthcare Support</option>
-                                    <option value="admin">System Administration</option>
-                                    <option value="marketing">Digital Marketing</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
+                <!-- Right Column - Field Mapping -->
+                <div class="mapping-column">
+                    <div class="signatory-section">
+                        <h3 class="section-title">Signatory Mapping</h3>
+                        <div class="signatory-row">
+                            <span class="signatory-label">Sponsor</span>
+                            <button class="btn-map" data-signatory="sponsor">Map</button>
                         </div>
-
-                        <div class="form-group">
-                            <label for="cohortDescription">Description *</label>
-                            <textarea id="cohortDescription" name="cohortDescription" required rows="4"
-                                placeholder="Provide a detailed description of the training program..."></textarea>
+                        <div class="signatory-row">
+                            <span class="signatory-label">Student</span>
+                            <button class="btn-map" data-signatory="student">Map</button>
                         </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="startDate">Start Date *</label>
-                                <input type="date" id="startDate" name="startDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="endDate">End Date *</label>
-                                <input type="date" id="endDate" name="endDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="maxStudents">Maximum Students *</label>
-                                <input type="number" id="maxStudents" name="maxStudents" required min="1" max="100" placeholder="20">
-                            </div>
+                        <div class="signatory-row">
+                            <span class="signatory-label">Training Provider</span>
+                            <button class="btn-map" data-signatory="provider">Map</button>
                         </div>
                     </div>
 
-                    <!-- Curriculum Section -->
-                    <div class="form-section">
-                        <h2 class="section-title">Curriculum Details</h2>
-                        <div class="form-group">
-                            <label for="programDuration">Program Duration *</label>
-                            <input type="text" id="programDuration" name="programDuration" required placeholder="e.g., 12 weeks, 6 months">
-                        </div>
+                    <div class="input-types-section">
+                        <h3 class="section-title">Input Field Types</h3>
 
-                        <div class="form-group">
-                            <label for="skills">Key Skills Covered</label>
-                            <input type="text" id="skills" name="skills" placeholder="e.g., JavaScript, React, Node.js (comma separated)">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="prerequisites">Prerequisites</label>
-                            <textarea id="prerequisites" name="prerequisites" rows="3"
-                                placeholder="List any prerequisites for participants..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="outcomes">Learning Outcomes</label>
-                            <textarea id="outcomes" name="outcomes" rows="4"
-                                placeholder="What participants will learn and be able to do after completing the program..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Sponsorship Section -->
-                    <div class="form-section">
-                        <h2 class="section-title">Sponsorship Information</h2>
-                        <div class="form-group">
-                            <label for="sponsorshipAmount">Sponsorship Amount Per Student *</label>
-                            <input type="number" id="sponsorshipAmount" name="sponsorshipAmount" required min="0" step="100" placeholder="5000">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="paymentSchedule">Payment Schedule</label>
-                            <select id="paymentSchedule" name="paymentSchedule">
-                                <option value="upfront">Full Upfront</option>
-                                <option value="monthly">Monthly Installments</option>
-                                <option value="milestone">Milestone-based</option>
-                                <option value="completion">On Completion</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sponsorBenefits">Sponsor Benefits</label>
-                            <textarea id="sponsorBenefits" name="sponsorBenefits" rows="3"
-                                placeholder="Describe benefits for sponsors (e.g., branding, hiring pipeline, tax benefits)..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Documents Section -->
-                    <div class="form-section">
-                        <h2 class="section-title">Supporting Documents</h2>
-                        <div class="document-upload-section">
-                            <div class="upload-area" id="documentUpload">
-                                <div class="upload-icon">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M17 8l-5-5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <div id="field-types-grid" class="input-types-grid">
+                            <button id="text_type_field_button" draggable="true" class="input-type-button" data-field="text">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
                                     </svg>
                                 </div>
-                                <div class="upload-content">
-                                    <h3>Upload supporting documents</h3>
-                                    <p>Drag and drop files here, or click to browse</p>
-                                    <button type="button" class="upload-btn">Choose Files</button>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 7v-2h13v2"></path>
+                                        <path d="M10 5v14"></path>
+                                        <path d="M12 19h-4"></path>
+                                        <path d="M15 13v-1h6v1"></path>
+                                        <path d="M18 12v7"></path>
+                                        <path d="M17 19h2"></path>
+                                    </svg>
+                                    <span class="field-label">Text</span>
                                 </div>
-                            </div>
-                            <div class="uploaded-documents" id="uploadedDocuments">
-                                <!-- Uploaded documents will be listed here -->
-                            </div>
+                            </button>
+
+                                                    <button id="signature_type_field_button" draggable="true" class="input-type-button" data-field="signature">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 19c3.333 -2 5 -4 5 -6c0 -3 -1 -3 -2 -3s-2.032 1.085 -2 3c.034 2.048 1.658 2.877 2.5 4c1.5 2 2.5 2.5 3.5 1c.667 -1 1.167 -1.833 1.5 -2.5c1 2.333 2.333 3.5 4 3.5h2.5"></path>
+                                        <path d="M20 17v-12c0 -1.121 -.879 -2 -2 -2s-2 .879 -2 2v12l2 2l2 -2z"></path>
+                                        <path d="M16 7h4"></path>
+                                    </svg>
+                                    <span class="field-label">Signature</span>
+                                </div>
+                            </button>
+
+                            <button id="initials_type_field_button" draggable="true" class="input-type-button" data-field="initials">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5"></path>
+                                        <path d="M3 13h7"></path>
+                                        <path d="M14 19v-10.5a3.5 3.5 0 0 1 7 0v10.5"></path>
+                                        <path d="M14 13h7"></path>
+                                    </svg>
+                                    <span class="field-label">Initials</span>
+                                </div>
+                            </button>
+
+                            <button id="date_type_field_button" draggable="true" class="input-type-button" data-field="date">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                                        <path d="M16 3l0 4"></path>
+                                        <path d="M8 3l0 4"></path>
+                                        <path d="M4 11l16 0"></path>
+                                        <path d="M8 15h2v2h-2z"></path>
+                                    </svg>
+                                    <span class="field-label">Date</span>
+                                </div>
+                            </button>
+
+                            <button id="number_type_field_button" draggable="true" class="input-type-button" data-field="number">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                                        <path d="M10 10l2 -2v8"></path>
+                                    </svg>
+                                    <span class="field-label">Number</span>
+                                </div>
+                            </button>
+
+                            <button id="image_type_field_button" draggable="true" class="input-type-button" data-field="image">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15 8h.01"></path>
+                                        <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"></path>
+                                        <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"></path>
+                                        <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"></path>
+                                    </svg>
+                                    <span class="field-label">Image</span>
+                                </div>
+                            </button>
+
+                            <button id="checkbox_type_field_button" draggable="true" class="input-type-button" data-field="checkbox">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 11l3 3l8 -8"></path>
+                                        <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"></path>
+                                    </svg>
+                                    <span class="field-label">Checkbox</span>
+                                </div>
+                            </button>
+
+                            <button id="multiple_type_field_button" draggable="true" class="input-type-button" data-field="multiple">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M7 12l5 5l10 -10"></path>
+                                        <path d="M2 12l5 5m5 -5l5 -5"></path>
+                                    </svg>
+                                    <span class="field-label">Multiple</span>
+                                </div>
+                            </button>
+
+                            <button id="file_type_field_button" draggable="true" class="input-type-button" data-field="file">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5"></path>
+                                    </svg>
+                                    <span class="field-label">File</span>
+                                </div>
+                            </button>
+
+                            <button id="radio_type_field_button" draggable="true" class="input-type-button" data-field="radio">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                    </svg>
+                                    <span class="field-label">Radio</span>
+                                </div>
+                            </button>
+
+                            <button id="select_type_field_button" draggable="true" class="input-type-button" data-field="select">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                                        <path d="M9 11l3 3l3 -3"></path>
+                                    </svg>
+                                    <span class="field-label">Select</span>
+                                </div>
+                            </button>
+
+                            <button id="cells_type_field_button" draggable="true" class="input-type-button" data-field="cells">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 3m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v16a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1zm6 -1v18m6 -18v18"></path>
+                                    </svg>
+                                    <span class="field-label">Cells</span>
+                                </div>
+                            </button>
+
+                            <button id="stamp_type_field_button" draggable="true" class="input-type-button" data-field="stamp">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 17.85h-18c0 -4.05 1.421 -4.05 3.79 -4.05c5.21 0 1.21 -4.59 1.21 -6.8a4 4 0 1 1 8 0c0 2.21 -4 6.8 1.21 6.8c2.369 0 3.79 0 3.79 4.05z"></path>
+                                        <path d="M5 21h14"></path>
+                                    </svg>
+                                    <span class="field-label">Stamp</span>
+                                </div>
+                            </button>
+
+                            <button id="payment_type_field_button" draggable="true" class="input-type-button" data-field="payment">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z"></path>
+                                        <path d="M3 10l18 0"></path>
+                                        <path d="M7 15l.01 0"></path>
+                                        <path d="M11 15l2 0"></path>
+                                    </svg>
+                                    <span class="field-label">Payment</span>
+                                </div>
+                            </button>
+
+                            <button id="phone_type_field_button" draggable="true" class="input-type-button" data-field="phone">
+                                <div class="drag-handle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                    </svg>
+                                </div>
+                                <div class="field-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
+                                        <path d="M15 6l2 2l4 -4"></path>
+                                    </svg>
+                                    <span class="field-label">Phone</span>
+                                </div>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Agreement Template Section -->
-                    <div class="form-section">
-                        <h2 class="section-title">Agreement Template</h2>
-                        <div class="form-group">
-                            <label for="agreementTemplate">Select Agreement Template</label>
-                            <select id="agreementTemplate" name="agreementTemplate">
-                                <option value="">Choose a template or create custom</option>
-                                <option value="standard">Standard Sponsorship Agreement</option>
-                                <option value="training">Training Program Agreement</option>
-                                <option value="apprenticeship">Apprenticeship Agreement</option>
-                                <option value="custom">Create Custom Template</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="customTerms">Custom Terms & Conditions</label>
-                            <textarea id="customTerms" name="customTerms" rows="6"
-                                placeholder="Add any custom terms or modifications to the standard agreement template..."></textarea>
-                        </div>
+                    <div class="scan-section">
+                        <button class="btn-scan">Autodetect Fields</button>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <script src="cohort-edit.js"></script>
+    <script>
+        // Initialize document upload functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupDocumentUpload();
+            setupFieldDragging();
+        });
+
+        function setupDocumentUpload() {
+            // CISA document upload
+            const cisaUpload = document.getElementById('cisa-upload');
+            const cisaUploadArea = document.getElementById('cisa-upload-area');
+
+            if (cisaUpload) {
+                cisaUpload.addEventListener('change', function(e) {
+                    handleCisaUpload(e);
+                });
+            }
+
+            // Additional documents upload
+            const additionalUpload = document.getElementById('additional-upload');
+            const additionalUploadArea = document.getElementById('additional-upload-area');
+
+            if (additionalUpload) {
+                additionalUpload.addEventListener('change', function(e) {
+                    handleAdditionalUpload(e);
+                });
+            }
+
+            // Setup carousel controls
+            setupCarouselControls();
+        }
+
+        function handleCisaUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                // Hide upload area, show preview
+                document.getElementById('cisa-upload-area').style.display = 'none';
+                document.getElementById('cisa-preview').style.display = 'block';
+                document.getElementById('cisa-preview-title').textContent = file.name;
+
+                // Update main PDF preview
+                updateMainPdfPreview(file);
+
+                console.log('CISA document uploaded:', file.name);
+            } else {
+                alert('Please upload a PDF file');
+            }
+        }
+
+        function removeCisaDocument() {
+            // Show upload area, hide preview
+            document.getElementById('cisa-upload-area').style.display = 'block';
+            document.getElementById('cisa-preview').style.display = 'none';
+            document.getElementById('cisa-upload').value = '';
+
+            // Clear main PDF preview
+            clearMainPdfPreview();
+
+            console.log('CISA document removed');
+        }
+
+        // PDF.js Variables
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.5;
+        let canvas = document.getElementById('pdf-canvas');
+        let ctx = canvas.getContext('2d');
+
+        function updateMainPdfPreview(file) {
+            if (file) {
+                // Show loading state
+                document.getElementById('pdf-title').textContent = file.name;
+                document.getElementById('pdf-placeholder').style.display = 'none';
+                document.getElementById('pdf-container').style.display = 'flex';
+                document.getElementById('pdf-controls').style.display = 'flex';
+
+                // Load the PDF
+                const fileReader = new FileReader();
+                fileReader.onload = function() {
+                    const typedarray = new Uint8Array(this.result);
+                    loadPDF(typedarray);
+                };
+                fileReader.readAsArrayBuffer(file);
+            }
+        }
+
+        function loadPDF(data) {
+            pdfjsLib.getDocument(data).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-info').textContent = `1 / ${pdfDoc.numPages}`;
+
+                // Initial page rendering
+                renderPage(pageNum);
+            }).catch(function(error) {
+                console.error('Error loading PDF:', error);
+                showPDFError('Failed to load PDF');
+            });
+        }
+
+        function renderPage(num) {
+            pageRendering = true;
+
+            return pdfDoc.getPage(num).then(function(page) {
+                const viewport = page.getViewport({scale: scale});
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                return page.render(renderContext).promise;
+            }).then(function() {
+                pageRendering = false;
+
+                if (pageNumPending !== null) {
+                    renderPage(pageNumPending);
+                    pageNumPending = null;
+                }
+
+                updateNavigationButtons();
+            }).catch(function(error) {
+                console.error('Error rendering page:', error);
+                pageRendering = false;
+            });
+        }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        function onPrevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+            document.getElementById('page-info').textContent = `${pageNum} / ${pdfDoc.numPages}`;
+        }
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+            document.getElementById('page-info').textContent = `${pageNum} / ${pdfDoc.numPages}`;
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prev-page-btn').disabled = pageNum <= 1;
+            document.getElementById('next-page-btn').disabled = pageNum >= pdfDoc.numPages;
+        }
+
+        function onZoomIn() {
+            scale = Math.min(scale + 0.25, 3);
+            updateZoom();
+        }
+
+        function onZoomOut() {
+            scale = Math.max(scale - 0.25, 0.5);
+            updateZoom();
+        }
+
+        function onFit() {
+            if (!pdfDoc) return;
+
+            pdfDoc.getPage(pageNum).then(function(page) {
+                const container = document.getElementById('pdf-container');
+                const containerWidth = container.clientWidth - 32; // Account for padding
+                const viewport = page.getViewport({scale: 1});
+
+                scale = containerWidth / viewport.width;
+                updateZoom();
+            });
+        }
+
+        function updateZoom() {
+            queueRenderPage(pageNum);
+            document.getElementById('zoom-level').textContent = `${Math.round(scale * 100)}%`;
+        }
+
+        function showPDFError(message) {
+            document.getElementById('pdf-container').style.display = 'none';
+            document.getElementById('pdf-controls').style.display = 'none';
+            document.getElementById('pdf-placeholder').style.display = 'block';
+            document.getElementById('pdf-placeholder').innerHTML = `
+                <div class="pdf-icon-large">❌</div>
+                <div class="upload-text">${message}</div>
+                <div class="upload-subtext">Please try uploading a different file</div>
+            `;
+        }
+
+        function clearMainPdfPreview() {
+            pdfDoc = null;
+            pageNum = 1;
+            pageRendering = false;
+            pageNumPending = null;
+            scale = 1.5;
+
+            document.getElementById('pdf-title').textContent = 'Document Preview';
+            document.getElementById('pdf-container').style.display = 'none';
+            document.getElementById('pdf-controls').style.display = 'none';
+            document.getElementById('pdf-placeholder').style.display = 'block';
+            document.getElementById('pdf-placeholder').innerHTML = `
+                <div class="pdf-placeholder-icon">📄</div>
+                <div class="upload-text">Upload a document to preview</div>
+                <div class="upload-subtext">Your document will appear here</div>
+            `;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function setupFieldDragging() {
+            const fieldButtons = document.querySelectorAll('.input-type-button');
+
+            fieldButtons.forEach(button => {
+                button.addEventListener('dragstart', handleDragStart);
+                button.addEventListener('dragend', handleDragEnd);
+            });
+
+            // Setup PDF preview as drop zone
+            const pdfPreview = document.querySelector('.pdf-column');
+            if (pdfPreview) {
+                pdfPreview.addEventListener('dragover', handleDragOver);
+                pdfPreview.addEventListener('drop', handleDrop);
+                pdfPreview.addEventListener('dragleave', handleDragLeave);
+            }
+
+            // Setup PDF controls
+            setupPDFControls();
+        }
+
+        // Additional Documents Variables
+        let additionalDocuments = [];
+        let currentCarouselIndex = 0;
+
+        function handleAdditionalUpload(event) {
+            const files = Array.from(event.target.files);
+            if (files.length === 0) return;
+
+            // Filter PDF files
+            const pdfFiles = files.filter(file => file.type === 'application/pdf');
+
+            if (pdfFiles.length === 0) {
+                alert('Please upload PDF files only');
+                return;
+            }
+
+            // Hide upload area, show carousel
+            document.getElementById('additional-upload-area').style.display = 'none';
+            document.getElementById('documents-carousel').style.display = 'block';
+
+            // Add files to the carousel
+            pdfFiles.forEach((file, index) => {
+                addDocumentToCarousel(file, additionalDocuments.length);
+            });
+
+            // Show first document
+            if (additionalDocuments.length > 0) {
+                showCarouselItem(0);
+            }
+        }
+
+        function addDocumentToCarousel(file, index) {
+            const documentData = {
+                file: file,
+                name: file.name,
+                id: `doc-${Date.now()}-${index}`,
+                pdfDoc: null,
+                pageNum: 1,
+                scale: 1.0
+            };
+
+            additionalDocuments.push(documentData);
+
+            // Create carousel item
+            const carouselContainer = document.getElementById('carousel-container');
+            const newItem = document.createElement('div');
+            newItem.className = 'carousel-item';
+            newItem.id = `carousel-item-${index}`;
+            newItem.innerHTML = `
+                <div class="document-preview-mini">
+                    <div class="mini-header">
+                        <div class="mini-title">${file.name}</div>
+                        <button class="remove-mini" onclick="removeAdditionalDocument(${index})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mini-preview" onclick="selectAdditionalDocument(${index})">
+                        <div class="mini-placeholder">
+                            <div class="mini-icon">📄</div>
+                            <span>Preview</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            carouselContainer.appendChild(newItem);
+
+            // Load PDF for this document
+            loadAdditionalDocumentPDF(file, documentData);
+        }
+
+        function loadAdditionalDocumentPDF(file, documentData) {
+            const fileReader = new FileReader();
+            fileReader.onload = function() {
+                const typedarray = new Uint8Array(this.result);
+                pdfjsLib.getDocument(typedarray).promise.then(function(pdfDoc_) {
+                    documentData.pdfDoc = pdfDoc_;
+                    // Update mini preview with PDF page
+                    updateMiniPreview(documentData);
+                }).catch(function(error) {
+                    console.error('Error loading additional PDF:', error);
+                });
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+
+        function updateMiniPreview(documentData) {
+            if (!documentData.pdfDoc) return;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 100;
+            canvas.height = 120;
+            const ctx = canvas.getContext('2d');
+
+            documentData.pdfDoc.getPage(1).then(function(page) {
+                const viewport = page.getViewport({scale: 0.3});
+                canvas.height = viewport.height * (100 / viewport.width);
+                canvas.width = 100;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+
+                return page.render(renderContext).promise;
+            }).then(function() {
+                // Replace placeholder with canvas
+                const miniPreview = document.querySelector(`#carousel-item-${additionalDocuments.indexOf(documentData)} .mini-preview`);
+                if (miniPreview) {
+                    miniPreview.innerHTML = '';
+                    miniPreview.appendChild(canvas);
+                }
+            }).catch(function(error) {
+                console.error('Error rendering mini preview:', error);
+            });
+        }
+
+        function selectAdditionalDocument(index) {
+            currentCarouselIndex = index;
+            const documentData = additionalDocuments[index];
+
+            if (documentData && documentData.pdfDoc) {
+                // Load this document into main PDF preview
+                loadDocumentIntoMainPreview(documentData);
+                showCarouselItem(index);
+            }
+        }
+
+        function loadDocumentIntoMainPreview(documentData) {
+            // Save current PDF state
+            const previousPdfDoc = pdfDoc;
+            const previousPageNum = pageNum;
+            const previousScale = scale;
+
+            // Load new document
+            pdfDoc = documentData.pdfDoc;
+            pageNum = documentData.pageNum;
+            scale = documentData.scale;
+
+            // Update UI
+            document.getElementById('pdf-title').textContent = documentData.name;
+            document.getElementById('page-info').textContent = `${pageNum} / ${pdfDoc.numPages}`;
+            document.getElementById('zoom-level').textContent = `${Math.round(scale * 100)}%`;
+
+            // Show PDF preview and controls
+            document.getElementById('pdf-placeholder').style.display = 'none';
+            document.getElementById('pdf-container').style.display = 'flex';
+            document.getElementById('pdf-controls').style.display = 'flex';
+
+            // Render current page
+            renderPage(pageNum);
+        }
+
+        function showCarouselItem(index) {
+            // Hide all items
+            const items = document.querySelectorAll('.carousel-item');
+            items.forEach((item, i) => {
+                item.classList.remove('active');
+            });
+
+            // Show selected item
+            const selectedItem = document.getElementById(`carousel-item-${index}`);
+            if (selectedItem) {
+                selectedItem.classList.add('active');
+            }
+
+            // Update counter
+            document.getElementById('carousel-counter').textContent = `${index + 1} / ${additionalDocuments.length}`;
+
+            // Update navigation buttons
+            document.getElementById('carousel-prev').disabled = index === 0;
+            document.getElementById('carousel-next').disabled = index === additionalDocuments.length - 1;
+
+            currentCarouselIndex = index;
+        }
+
+        function removeAdditionalDocument(index) {
+            // Remove document from array
+            additionalDocuments.splice(index, 1);
+
+            // Remove carousel item
+            const itemToRemove = document.getElementById(`carousel-item-${index}`);
+            if (itemToRemove) {
+                itemToRemove.remove();
+            }
+
+            // Rebuild carousel items with new indices
+            rebuildCarousel();
+
+            // If no documents left, show upload area
+            if (additionalDocuments.length === 0) {
+                document.getElementById('additional-upload-area').style.display = 'block';
+                document.getElementById('documents-carousel').style.display = 'none';
+            } else {
+                // Show appropriate document
+                const newIndex = Math.min(index, additionalDocuments.length - 1);
+                showCarouselItem(newIndex);
+            }
+
+            // Clear main PDF preview if removed document was being displayed
+            if (document.getElementById('pdf-title').textContent === 'Document Preview') {
+                clearMainPdfPreview();
+            }
+        }
+
+        function rebuildCarousel() {
+            const container = document.getElementById('carousel-container');
+            container.innerHTML = '';
+
+            additionalDocuments.forEach((doc, index) => {
+                const newItem = document.createElement('div');
+                newItem.className = 'carousel-item';
+                newItem.id = `carousel-item-${index}`;
+                newItem.innerHTML = `
+                    <div class="document-preview-mini">
+                        <div class="mini-header">
+                            <div class="mini-title">${doc.name}</div>
+                            <button class="remove-mini" onclick="removeAdditionalDocument(${index})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 6L6 18M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mini-preview" onclick="selectAdditionalDocument(${index})">
+                            ${doc.pdfDoc ? '' : `
+                                <div class="mini-placeholder">
+                                    <div class="mini-icon">📄</div>
+                                    <span>Preview</span>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(newItem);
+
+                // If PDF is already loaded, create preview
+                if (doc.pdfDoc) {
+                    updateMiniPreview(doc);
+                }
+            });
+        }
+
+      
+        function setupCarouselControls() {
+            document.getElementById('carousel-prev').addEventListener('click', function() {
+                if (currentCarouselIndex > 0) {
+                    selectAdditionalDocument(currentCarouselIndex - 1);
+                }
+            });
+
+            document.getElementById('carousel-next').addEventListener('click', function() {
+                if (currentCarouselIndex < additionalDocuments.length - 1) {
+                    selectAdditionalDocument(currentCarouselIndex + 1);
+                }
+            });
+        }
+
+        function setupPDFControls() {
+            // Navigation controls
+            document.getElementById('prev-page-btn').addEventListener('click', onPrevPage);
+            document.getElementById('next-page-btn').addEventListener('click', onNextPage);
+
+            // Zoom controls (header buttons)
+            document.getElementById('zoom-in-btn').addEventListener('click', onZoomIn);
+            document.getElementById('zoom-out-btn').addEventListener('click', onZoomOut);
+            document.getElementById('fit-btn').addEventListener('click', onFit);
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (!pdfDoc) return;
+
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        onPrevPage();
+                        break;
+                    case 'ArrowRight':
+                        onNextPage();
+                        break;
+                    case '+':
+                    case '=':
+                        onZoomIn();
+                        break;
+                    case '-':
+                    case '_':
+                        onZoomOut();
+                        break;
+                    case '0':
+                        onFit();
+                        break;
+                }
+            });
+        }
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.target.style.opacity = '0.5';
+            e.dataTransfer.effectAllowed = 'copy';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            e.target.style.opacity = '';
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'copy';
+            e.currentTarget.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+            return false;
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.style.backgroundColor = '';
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            e.preventDefault();
+
+            const fieldType = draggedElement ? draggedElement.getAttribute('data-field') : '';
+            console.log('Field dropped:', fieldType);
+
+            // Show field added notification
+            showFieldNotification(fieldType);
+
+            e.currentTarget.style.backgroundColor = '';
+            return false;
+        }
+
+        function showFieldNotification(fieldType) {
+            const notification = document.createElement('div');
+            notification.className = 'field-notification';
+            notification.textContent = `${fieldType.charAt(0).toUpperCase() + fieldType.slice(1)} field added to document`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--color-primary);
+                color: white;
+                padding: var(--space-3) var(--space-4);
+                border-radius: var(--radius-md);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+
+    <style>
+        /* Additional styles for PDF viewer */
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+        }
+        .pdf-header-info {
+            padding: var(--space-4);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+        .pdf-file-info h3 {
+            margin: 0;
+            color: var(--text-primary);
+        }
+        .pdf-file-info p {
+            margin: var(--space-1) 0 0 0;
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        .pdf-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pdf-loading {
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+        .loading-spinner {
+            font-size: 48px;
+            margin-bottom: var(--space-3);
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .pdf-display {
+            width: 100%;
+            height: 100%;
+        }
+        .pdf-page {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            padding: var(--space-6);
+            margin: var(--space-4);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pdf-placeholder-full {
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+        .pdf-icon-large {
+            font-size: 64px;
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+        .pdf-placeholder-text {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-2);
+        }
+        .pdf-placeholder-subtext {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    </style>
 </body>
 </html>

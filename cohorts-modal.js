@@ -1,5 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     setupQualificationDropdown();
+    setupCheckboxListener();
+
+    // Also set up a MutationObserver to watch for changes in the modal
+    const modalContent = document.querySelector('.modal-content');
+    if (modalContent) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    const checkbox = document.getElementById('confirmCreate');
+                    const button = document.getElementById('createBtn');
+                    if (checkbox && button) {
+                        console.log('MutationObserver: Found checkbox and button');
+                        // Set up listener immediately
+                        checkbox.addEventListener('change', function() {
+                            console.log('MutationObserver checkbox change:', this.checked);
+                            button.disabled = !this.checked;
+                        });
+                        // Set initial state
+                        button.disabled = !checkbox.checked;
+                    }
+                }
+            });
+        });
+        observer.observe(modalContent, { childList: true, subtree: true });
+    }
 });
 
 let currentStep = 1;
@@ -195,6 +220,31 @@ function setupQualificationDropdown() {
     });
 }
 
+function setupCheckboxListener() {
+    const confirmCheckbox = document.getElementById('confirmCreate');
+    const createBtn = document.getElementById('createBtn');
+
+    console.log('Setting up checkbox listener');
+    console.log('Checkbox found:', !!confirmCheckbox);
+    console.log('Button found:', !!createBtn);
+
+    if (confirmCheckbox && createBtn) {
+        confirmCheckbox.addEventListener('change', function() {
+            console.log('Checkbox changed:', this.checked);
+            console.log('Current step:', currentStep);
+            createBtn.disabled = !this.checked;
+            console.log('Button disabled set to:', !this.checked);
+        });
+
+        // Also check initial state in case we're on step 4 when this runs
+        if (currentStep === 4) {
+            createBtn.disabled = !confirmCheckbox.checked;
+        }
+    } else {
+        console.log('Checkbox or button not found!');
+    }
+}
+
 function updateQualificationOptions(setaValue) {
     const qualification = document.getElementById('qualification');
 
@@ -275,6 +325,14 @@ function updateStepDisplay() {
     // Update review content if on last step
     if (currentStep === 4) {
         updateReviewContent();
+
+        // Ensure checkbox listener is set up and button state is correct
+        const confirmCheckbox = document.getElementById('confirmCreate');
+        const createBtn = document.getElementById('createBtn');
+        if (confirmCheckbox && createBtn) {
+            createBtn.disabled = !confirmCheckbox.checked;
+            console.log('updateStepDisplay: Set button disabled to:', !confirmCheckbox.checked);
+        }
     }
 }
 
@@ -282,6 +340,7 @@ function updateButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const createBtn = document.getElementById('createBtn');
+    const confirmCheckbox = document.getElementById('confirmCreate');
 
     // Previous button
     prevBtn.disabled = currentStep === 1;
@@ -290,7 +349,14 @@ function updateButtons() {
     if (currentStep === totalSteps) {
         nextBtn.style.display = 'none';
         createBtn.style.display = 'block';
-        createBtn.disabled = !isFormComplete();
+
+        // Enable button if checkbox is checked
+        if (confirmCheckbox) {
+            createBtn.disabled = !confirmCheckbox.checked;
+            console.log('updateButtons: Button disabled set to:', !confirmCheckbox.checked);
+        } else {
+            createBtn.disabled = true;
+        }
     } else {
         nextBtn.style.display = 'block';
         createBtn.style.display = 'none';
@@ -303,18 +369,13 @@ function validateCurrentStep() {
 
     switch (currentStep) {
         case 1:
-            requiredFields.push('cohortName', 'setaType', 'qualification', 'cohortType');
+            requiredFields.push('cohortName', 'setaType', 'qualification', 'programType');
             break;
         case 2:
-            requiredFields.push('numberOfStudents', 'sponsor', 'duration');
+            requiredFields.push('numberOfStudents', 'startDate', 'endDate');
             break;
         case 3:
-            // At least one document must be selected
-            const documents = document.querySelectorAll('input[name="documents"]:checked');
-            if (documents.length === 0) {
-                alert('Please select at least one supporting document');
-                return false;
-            }
+            // This step is for review only - no validation needed
             return true;
         case 4:
             // Confirmation checkbox
@@ -342,13 +403,14 @@ function isCurrentStepComplete() {
 
     switch (currentStep) {
         case 1:
-            requiredFields.push('cohortName', 'setaType', 'qualification', 'cohortType');
+            requiredFields.push('cohortName', 'setaType', 'qualification', 'programType');
             break;
         case 2:
-            requiredFields.push('numberOfStudents', 'sponsor', 'duration');
+            requiredFields.push('numberOfStudents', 'startDate', 'endDate');
             break;
         case 3:
-            return document.querySelectorAll('input[name="documents"]:checked').length > 0;
+            // This step is for review only - always complete if steps 1-2 are done
+            return true;
         case 4:
             return document.getElementById('confirmCreate').checked;
     }
@@ -416,10 +478,13 @@ function createCohort() {
     console.log('Creating cohort with data:', formData);
 
     // Show success message
-    alert('Cohort created successfully!\n\n' + JSON.stringify(formData, null, 2));
+    alert('Cohort created successfully! Redirecting to edit page...');
 
     // Close modal and reset form
     closeModal();
+
+    // Navigate to cohort edit page
+    window.location.href = 'cohort-edit.html';
 }
 
 function resetForm() {
@@ -454,5 +519,49 @@ document.addEventListener('click', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
+    }
+});
+
+// Debug function - call this from console to manually enable button
+window.enableCreateButton = function() {
+    const createBtn = document.getElementById('createBtn');
+    const confirmCheckbox = document.getElementById('confirmCreate');
+
+    console.log('Manual enable called');
+    console.log('Button found:', !!createBtn);
+    console.log('Checkbox found:', !!confirmCheckbox);
+    console.log('Current step:', currentStep);
+
+    if (createBtn) {
+        createBtn.disabled = false;
+        console.log('Button manually enabled');
+    }
+};
+
+// Set up a global click listener to see if checkbox is working and handle button enable
+document.addEventListener('click', function(event) {
+    if (event.target.id === 'confirmCreate') {
+        console.log('Checkbox clicked directly, checked:', event.target.checked);
+
+        // Directly find and enable/disable the button
+        const createBtn = document.getElementById('createBtn');
+        if (createBtn) {
+            createBtn.disabled = !event.target.checked;
+            console.log('Button disabled set to:', !event.target.checked);
+        }
+    }
+});
+
+// Also handle checkbox change events globally
+document.addEventListener('change', function(event) {
+    if (event.target.id === 'confirmCreate') {
+        console.log('Checkbox change event, checked:', event.target.checked);
+
+        // Directly find and enable/disable the button
+        const createBtn = document.getElementById('createBtn');
+        if (createBtn) {
+            createBtn.disabled = !event.target.checked;
+            console.log('Button disabled set to:', !event.target.checked);
+        }
     }
 });
