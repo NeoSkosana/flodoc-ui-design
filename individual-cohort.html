@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Development - flodoc</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">flodoc</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="cohorts.html" class="nav-item active">Cohorts</a>
+                <a href="#" class="nav-item">Settings</a>
+            </nav>
+            <div class="user-actions">
+                <button class="notification-btn" title="Notifications">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-avatar" title="Profile">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="individual-cohort-page">
+            <!-- Cohort Header Row -->
+            <div class="cohort-header-row">
+                <div class="cohort-title-section">
+                    <h1 class="cohort-name">System Development</h1>
+                    <p class="cohort-state">National Certificate: IT Systems Development (NQF Level 5)</p>
+                </div>
+                <div class="cohort-actions">
+                    <button class="cohort-action-btn" title="Link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Link</span>
+                    </button>
+                    <button class="cohort-action-btn" title="Clone">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Clone</span>
+                    </button>
+                    <button class="cohort-action-btn" title="Edit">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Edit</span>
+                    </button>
+                    <button class="cohort-action-btn" title="Archive">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="21 8 21 21 3 21 3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="1" y="3" width="22" height="5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Archive</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div class="cohort-tabs-section">
+                <div class="tabs-header">
+                    <button class="tab-button active" data-tab="students">
+                        <span class="tab-text">Students</span>
+                    </button>
+                    <button class="tab-button" data-tab="sponsor">
+                        <span class="tab-text">Sponsor</span>
+                    </button>
+                    <button class="tab-button" data-tab="completed">
+                        <span class="tab-text">Completed</span>
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Students Tab Content (Default Active) -->
+                    <div class="tab-pane active" id="students-tab">
+                        <!-- Empty State (No Submissions) -->
+                        <div class="empty-state" id="emptyState">
+                            <p class="empty-state-message">Still waiting on students to accept invitation link</p>
+                            <button class="next-cohort-btn">Next cohort</button>
+                        </div>
+
+                        <!-- Student Cards (With Submissions - Hidden by default) -->
+                        <div class="student-cards-wrapper" id="studentCardsContainer" style="display: none;">
+                            <div class="student-cards-container">
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Thabo Mokoena</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">thabo.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Lerato Dlamini</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">lerato.dlamini@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Sipho Zulu</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">sipho.zulu@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Nomzamo Mbatha</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">nomzamo.mbatha@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Kagiso Naidoo</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">kagiso.naidoo@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Amogelang Moroka</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">amogelang.moroka@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Zanele Dlamini</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">zanele.dlamini@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Mpho Moerane</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">mpho.moerane@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Katlego Mphahlele</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">katlego.mphahlele@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Tumelo Maleka</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">tumelo.maleka@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Karabo Mokoena</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">karabo.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Refilwe Nkosi</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">refilwe.nkosi@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Lesedi Moyo</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">lesedi.moyo@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Siyabonga Ndlovu</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">siyabonga.ndlovu@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Nthabiseng Zuma</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">nthabiseng.zuma@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Kabelo Maseko</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">kabelo.maseko@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Dineo Skosana</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">dineo.skosana@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Bongani Nkosi</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">bongani.nkosi@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Thato Mokoena</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">thato.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Busisi Dlamini</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">busisi.dlamini@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Sibusiso Khumalo</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">sibusiso.khumalo@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Nomsa Mazibuko</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">nomsa.mazibuko@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Teboho Mokoena</span>
+                                            <span class="status-badge pill waiting">Waiting</span>
+                                        </div>
+                                        <span class="student-email">teboho.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Kagiso Mokoena</span>
+                                            <span class="status-badge pill in-progress">In Progress</span>
+                                        </div>
+                                        <span class="student-email">kagiso.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                                <div class="student-card">
+                                    <div class="student-card-info">
+                                        <div class="student-card-header">
+                                            <span class="student-name">Lerato Mokoena</span>
+                                            <span class="status-badge pill pending">Pending</span>
+                                        </div>
+                                        <span class="student-email">lerato.mokoena@example.com</span>
+                                    </div>
+                                    <div class="student-card-action">
+                                        <button class="view-student-btn">View</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button class="next-cohort-btn">Next cohort</button>
+                        </div>
+                    </div>
+
+                    <!-- Sponsor Tab Content -->
+                    <div class="tab-pane" id="sponsor-tab">
+                        <div class="tab-content-placeholder">
+                            <p>Sponsor information will be displayed here.</p>
+                        </div>
+                    </div>
+
+                    <!-- Completed Tab Content -->
+                    <div class="tab-pane" id="completed-tab">
+                        <div class="tab-content-placeholder">
+                            <p>Completed students and their achievements will be displayed here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="individual-cohort.js"></script>
+</body>
+</html>

@@ -21,10 +21,39 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupCohortActions() {
+    // Add click handlers to cohort overlays (for viewing individual cohort)
+    const cohortOverlays = document.querySelectorAll('.cohort-overlay');
+
+    cohortOverlays.forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cohortCard = this.closest('.cohort-card');
+            const cohortName = cohortCard.querySelector('.cohort-name').textContent;
+            navigateToIndividualCohort(cohortName);
+        });
+    });
+
+    // Also make the entire card clickable (except for specific action buttons)
+    const cohortCards = document.querySelectorAll('.cohort-card');
+
+    cohortCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't navigate if clicking on an action button
+            if (e.target.closest('.cohort-action-btn')) {
+                return;
+            }
+
+            const cohortName = this.querySelector('.cohort-name').textContent;
+            navigateToIndividualCohort(cohortName);
+        });
+    });
+
+    // Action button handlers (if any exist)
     const cohortActionBtns = document.querySelectorAll('.cohort-action-btn');
 
     cohortActionBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card click
             const cohortCard = this.closest('.cohort-card');
             const cohortName = cohortCard.querySelector('.cohort-name').textContent;
             const cohortStatus = cohortCard.querySelector('.status-badge').textContent.trim();
@@ -48,6 +77,19 @@ function viewCohort(cohortId) {
     // This function would typically navigate to a detailed cohort view
     console.log(`Viewing cohort: ${cohortId}`);
     // In a real application, this would be: window.location.href = `/cohorts/${cohortId}`;
+}
+
+function navigateToIndividualCohort(cohortName) {
+    // Navigate to the individual cohort page
+    // In a real application, you would pass the cohort ID as a URL parameter
+    // For now, we'll just navigate to the page
+    window.location.href = 'individual-cohort.html';
+
+    // In production, you would do something like:
+    // window.location.href = `individual-cohort.html?id=${cohortId}`;
+    // or use a router: router.push(`/cohorts/${cohortId}`);
+
+    console.log(`Navigating to individual cohort page for: ${cohortName}`);
 }
 
 // Filtering and Sorting functionality
