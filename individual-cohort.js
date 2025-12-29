@@ -74,7 +74,14 @@ function setupViewButtons() {
             const studentName = studentCard.querySelector('.student-name').textContent;
             const studentEmail = studentCard.querySelector('.student-email').textContent;
             const studentStatus = studentCard.querySelector('.status-badge.pill').textContent.trim();
-            alert(`Viewing ${studentName}\nEmail: ${studentEmail}\nStatus: ${studentStatus}\n\nThis would open the student's detailed profile and submissions.`);
+
+            // Store student info in sessionStorage for the submission page
+            sessionStorage.setItem('currentStudent', studentName);
+            sessionStorage.setItem('currentStudentEmail', studentEmail);
+            sessionStorage.setItem('currentStatus', studentStatus);
+
+            // Navigate to submission page
+            window.location.href = 'submission-page.html';
         });
     });
 }
