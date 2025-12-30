@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - FloDoc AMS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-text">flodoc</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="cohort-management.html" class="nav-item">Cohorts</a>
+                <a href="settings-page.html" class="nav-item active">Settings</a>
+            </nav>
+            <div class="user-actions">
+                <button class="notification-btn" title="Notifications">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-avatar" title="Profile">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="settings-page">
+                <!-- Page Title -->
+                <div class="settings-title">
+                    <h1>Settings</h1>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="settings-content-wrapper">
+                    <form class="settings-form" id="settingsForm">
+                        <!-- Profile Section -->
+                        <div class="settings-section">
+                            <h2 class="settings-section-title">Profile</h2>
+                            <p class="settings-section-description">Update your personal information</p>
+
+                            <div class="form-fields">
+                                <!-- First Name -->
+                                <div class="form-field">
+                                    <label class="field-label" for="firstName">First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        name="firstName"
+                                        class="field-input"
+                                        placeholder="Enter your first name"
+                                        required
+                                    >
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="form-field">
+                                    <label class="field-label" for="lastName">Last Name</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        name="lastName"
+                                        class="field-input"
+                                        placeholder="Enter your last name"
+                                        required
+                                    >
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-field">
+                                    <label class="field-label" for="email">Email Address</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="field-input"
+                                        placeholder="Enter your email address"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Signature Section -->
+                        <div class="settings-section">
+                            <div class="signature-centered">
+                                <h2 class="settings-section-title">Signature</h2>
+                                <p class="settings-section-description">Draw your signature for document signing</p>
+
+                                <div class="signature-wrapper">
+                                    <div class="canvas-container">
+                                        <canvas
+                                            id="signatureCanvas"
+                                            class="signature-canvas"
+                                            width="600"
+                                            height="200"
+                                        ></canvas>
+                                        <div class="canvas-placeholder" id="signaturePlaceholder">
+                                            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3z"/>
+                                                <polyline points="14 3 14 8 20 8"/>
+                                                <path d="M8 13h8"/>
+                                                <path d="M8 17h8"/>
+                                                <path d="M10 9h1"/>
+                                            </svg>
+                                            <span class="placeholder-text">Click and drag to draw your signature</span>
+                                        </div>
+                                    </div>
+                                    <div class="canvas-actions">
+                                        <button type="button" class="btn-secondary" id="clearSignatureBtn">
+                                            Clear
+                                        </button>
+                                        <button type="button" class="btn-primary" id="saveSignatureBtn">
+                                            Save Signature
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Initials Section -->
+                        <div class="settings-section">
+                            <div class="initials-centered">
+                                <h2 class="settings-section-title">Initials</h2>
+                                <p class="settings-section-description">Enter or draw your initials for document signing</p>
+
+                                <div class="form-fields" style="width: 100%; max-width: 300px; margin-bottom: var(--space-6);">
+                                    <div class="form-field">
+                                        <label class="field-label" for="initialsText">Type Your Initials</label>
+                                        <input
+                                            type="text"
+                                            id="initialsText"
+                                            name="initialsText"
+                                            class="field-input"
+                                            placeholder="e.g., JD"
+                                            maxlength="5"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="initials-wrapper">
+                                    <div class="canvas-container">
+                                        <canvas
+                                            id="initialsCanvas"
+                                            class="initials-canvas"
+                                            width="300"
+                                            height="200"
+                                        ></canvas>
+                                        <div class="canvas-placeholder" id="initialsPlaceholder">
+                                            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M15.5 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3z"/>
+                                                <polyline points="14 3 14 8 20 8"/>
+                                                <path d="M8 13h8"/>
+                                                <path d="M8 17h8"/>
+                                                <path d="M10 9h1"/>
+                                            </svg>
+                                            <span class="placeholder-text">Or draw your initials</span>
+                                        </div>
+                                    </div>
+                                    <div class="canvas-actions">
+                                        <button type="button" class="btn-secondary" id="clearInitialsBtn">
+                                            Clear
+                                        </button>
+                                        <button type="button" class="btn-primary" id="saveInitialsBtn">
+                                            Save Initials
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="settings-form-actions">
+                            <button type="button" class="btn-secondary" id="cancelBtn">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn-primary" id="saveProfileBtn">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    <script src="settings-page.js"></script>
+</body>
+</html>
